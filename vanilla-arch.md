@@ -6,8 +6,6 @@
 By g5ostXa :ghost:
 </div>
 
-<div align="left">
-
 ## Table of contents
 - [Preparation](#preparation)
 - [Partitions](#partitions)
@@ -24,33 +22,34 @@ By g5ostXa :ghost:
 - [Exit installation and reboot](#exit-installation-and-reboot)
 
 ## Preparation
-- Set temporary root password:
+Set temporary root password:
 ```
 # passwd
 ```
-- Configure mirrors using reflector:
+Configure mirrors using reflector:
 ```
 # reflector --country Canada --protocol https --latest 20 --age 6 --sort rate --save /etc/pacman.d/mirrorlist
 ```
-- Refresh/sync repositories:
+Refresh/sync repositories:
 ```
 # pacman -Sy
 ```
-- Enable network time protocol and set timezone:
+Enable network time protocol and set timezone:
 ```
 # timedatectl set-ntp true && timedatectl set-timezone America/Toronto
 ```
 
 ## Partitions
-_**Note: This example assumes `nvme0n1` is the disk name. You can verify this with `lsblk` command.**_
-- Optionally, wipe the disk for a clean install:
+> [!NOTE]
+> This example assumes `nvme0n1` is the disk name. You can verify this with `lsblk` command.
+> - Optionally, wipe the disk for a clean install:
 ```
 # dd if=/dev/zero of=/dev/nvme0n1 status=progress
 ```
 ```
 # sync
 ```
-- Now, let's create both the boot and root partitions:
+Now, let's create both the boot and root partitions:
 ```
 # gdisk /dev/nvme0n1
 ```
@@ -84,49 +83,49 @@ Expected layout:
 ```
   
 ## Base Installation
-- Install the system base:
+Install the system base:
 ```
 # pacstrap -K /mnt base linux linux-firmware vim intel-ucode
 ```
 
 ## Fstab and Enter installation
-- Generate the fstab config file:
+Generate the fstab config file:
 ```
 # genfstab -U /mnt >> /mnt/etc/fstab
 ```
-- Enter Installation:
+Enter Installation:
 ```
 # arch-chroot /mnt
 ```
 
 ## Locales
-- Configure time zone:
+Configure time zone:
 ```
 # ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
 ```
-- Configure system clock:
+Configure system clock:
 ```
 # hwclock --systohc
 ```
-- To set the locales, edit `/etc/locale.gen` and uncomment the following line:
+To set the locales, edit `/etc/locale.gen` and uncomment the following line:
 ```
 en_US.UTF-8
 ```
-- Generate the locales:
+Generate the locales:
 ```
 # locale-gen
 ```
-- Append to locale.conf:
+Append to locale.conf:
 ```
 # echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 ```
 
 ## Hosts and hostname
-- Set the machine name:
+Set the machine name:
 ```
 # echo HOSTNAME >> /etc/hostname
 ```
-- To configure localhosts, edit `/etc/hosts` and use the following example:
+To configure localhosts, edit `/etc/hosts` and use the following example:
 
 | Addresses |  Hosts       |
 |:-------- | :-----------: |
@@ -135,60 +134,63 @@ en_US.UTF-8
 | 127.0.1.1|  "hostname".localdomain  "hostname"
 
 ## Root password and system install
-- To set root password:
+To set root password:
 ```
 # passwd
 ```
-- Install main system:
+Install main system:
 ```
 # pacman -S --needed --noconfirm grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers git reflector xdg-utils xdg-user-dirs gum figlet dnsmasq lsof htop fastfetch vim openssh ufw firejail apparmor audit firefox
 ```
 
 ## Kernel image generation and grub
-- Regenerate the kernel image:
+Regenerate the kernel image:
 ```
 # mkinitcpio -p linux
 ```
-- Install the grub bootloader:
+Install the grub bootloader:
 ```
 # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 ```
-- Finally, generate the new grub configuration:
+Finally, generate the new grub configuration:
 ```
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## Systemd services
-- Enable NetworkManager at system startup:
+Enable NetworkManager at system startup:
 ```
 # systemctl enable NetworkManager.service
 ```
-- Enable file system trim timer:
+Enable file system trim timer:
 ```
 # systemctl enable fstrim.timer
 ```
-- To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. Then, enable reflector with the following command:
+To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. Then, enable reflector with the following command:
 ```
 # systemctl enable reflector.timer
 ```
 
 ## Users
-- Create new user:
+Create new user:
 ```
 # useradd USERNAME -m -G wheel
 ```
-- Set password for new user:
+Set password for new user:
 ```
 # passwd USERNAME
 ```
 
 ## Wheel and sudo
-- Access the sudoers file using vim:
+Access the sudoers file using vim:
 ```
 # EDITOR=vim visudo
 ```
-Note: To let anyone in the wheel group use sudo, uncomment this line:
-`%wheel ALL=(ALL:ALL) ALL`
+> [!NOTE]
+> To let anyone in the wheel group use sudo, uncomment this line:
+``` bash
+%wheel ALL=(ALL:ALL) ALL
+```
  
 ## Exit installation and reboot
 ```
@@ -200,5 +202,4 @@ Note: To let anyone in the wheel group use sudo, uncomment this line:
 ```
 # reboot
 ```
-</div>
 
