@@ -24,19 +24,19 @@ By g5ostXa :ghost:
 ## Preparation
 Set temporary root password:
 ```bash
-passwd
+# passwd
 ```
 Configure mirrors using reflector:
 ```bash
-reflector --country Canada --protocol https --latest 20 --age 6 --sort rate --save /etc/pacman.d/mirrorlist
+# reflector --country Canada --protocol https --latest 20 --age 6 --sort rate --save /etc/pacman.d/mirrorlist
 ```
 Refresh/sync repositories:
 ```bash
-pacman -Sy
+# pacman -Sy
 ```
 Enable network time protocol and set timezone:
 ```bash
-timedatectl set-ntp true && timedatectl set-timezone America/Toronto
+# timedatectl set-ntp true && timedatectl set-timezone America/Toronto
 ```
 
 ## Partitions
@@ -46,14 +46,14 @@ timedatectl set-ntp true && timedatectl set-timezone America/Toronto
 
 Wipe the disk properly to later use with Luks encryption:
 ```bash
-dd if=/dev/zero of=/dev/nvme0n1 status=progress
+# dd if=/dev/zero of=/dev/nvme0n1 status=progress
 ```
 ```ruby
-sync
+# sync
 ```
 Now, let's create the EFI and LVM partitions:
 ```bash
-gdisk /dev/nvme0n1
+# gdisk /dev/nvme0n1
 ```
 - `o` (Delete all partitions and create new protective mbr)
 - `n` (for new)
@@ -76,65 +76,65 @@ Expected layout:
     
 ## Formatting
 ```fish
-cryptsetup luksFormat /dev/nvme0n1p2
+# cryptsetup luksFormat /dev/nvme0n1p2
 
-cryptsetup open /dev/nvme0n1p2 "name of encrypted disk"
+# cryptsetup open /dev/nvme0n1p2 "name of encrypted disk"
 
-pvcreate /dev/mapper/"name of encrypted disk"
+# pvcreate /dev/mapper/"name of encrypted disk"
 
-vgcreate "name of volume group" /dev/mapper/"name of encrypted disk"
+# vgcreate "name of volume group" /dev/mapper/"name of encrypted disk"
 
-lvcreate -L 150G "name of volume group" -n root
+# lvcreate -L 150G "name of volume group" -n root
 
-lvcreate -L 4G "name of volume group" -n swap
+# lvcreate -L 4G "name of volume group" -n swap
 
-lvcreate -l 100%FREE "name of volume group" -n home
+# lvcreate -l 100%FREE "name of volume group" -n home
 
-mkfs.fat -F32 /dev/nvme0n1p1
+# mkfs.fat -F32 /dev/nvme0n1p1
 
-mkfs.ext4 /dev/"name of volume group"/root
+# mkfs.ext4 /dev/"name of volume group"/root
 
-mkfs.ext4 /dev/"name of volume group"/home
+# mkfs.ext4 /dev/"name of volume group"/home
 
-mkswap /dev/"name of volume group"/swap
+# mkswap /dev/"name of volume group"/swap
 
-mount /dev/"name of volume group"/root /mnt
+# mount /dev/"name of volume group"/root /mnt
 
-mkdir /mnt/home
+# mkdir /mnt/home
 
-mount /dev/"name of volume group"/home /mnt/home
+# mount /dev/"name of volume group"/home /mnt/home
 
-mkdir /mnt/boot
+# mkdir /mnt/boot
 
-mount /dev/nvme0n1p1 /mnt/boot
+# mount /dev/nvme0n1p1 /mnt/boot
 
-swapon /dev/"name of volume group"/swap
+# swapon /dev/"name of volume group"/swap
 ```
 
 ## Base Installation
 Install the system base:
 ```bash
-pacstrap -K /mnt base linux linux-firmware vim intel-ucode lvm2
+# pacstrap -K /mnt base linux linux-firmware vim intel-ucode lvm2
 ```
 
 ## Fstab and Enter installation
 Generate the fstab config file:
 ```bash
-genfstab -U /mnt >> /mnt/etc/fstab
+# genfstab -U /mnt >> /mnt/etc/fstab
 ```
 Enter Installation:
 ```bash
-arch-chroot /mnt
+# arch-chroot /mnt
 ```
 
 ## Locales
 Configure time zone:
 ```bash
-ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
+# ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
 ```
 Configure system clock:
 ```bash
-hwclock --systohc
+# hwclock --systohc
 ```
 To set the locales, edit `/etc/locale.gen` and uncomment the following line:
 ```md
@@ -142,17 +142,17 @@ en_US.UTF-8
 ```
 Generate the locales:
 ```bash
-locale-gen
+# locale-gen
 ```
 Append to locale.conf:
 ```bash
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+# echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 ```
 
 ## Hosts and hostname
 Set the machine name:
 ```bash
-echo HOSTNAME >> /etc/hostname
+# echo HOSTNAME >> /etc/hostname
 ```
 To configure localhosts, edit `/etc/hosts` and use the following example:
 
@@ -165,11 +165,11 @@ To configure localhosts, edit `/etc/hosts` and use the following example:
 ## Root password and system install
 To set root password:
 ```ruby
-passwd
+# passwd
 ```
 Install main system:
 ```bash
-pacman -S --needed --noconfirm grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers git reflector xdg-utils xdg-user-dirs gum figlet dnsmasq lsof htop fastfetch vim openssh ufw firejail apparmor audit firefox
+# pacman -S --needed --noconfirm grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers git reflector xdg-utils xdg-user-dirs gum figlet dnsmasq lsof htop fastfetch vim openssh ufw firejail apparmor audit firefox
 ```
 
 ## Kernel hooks and grub configuration
@@ -179,11 +179,11 @@ HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck
 ```
 Now, regenerate the kernel image:
 ```bash
-mkinitcpio -p linux
+# mkinitcpio -p linux
 ```
 Install the grub bootloader:
 ```bash
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 ```
 
 Next, we need to edit `/etc/default/grub` to configure `GRUB_CMDLINE_LINUX`:
@@ -194,46 +194,46 @@ GRUB_CMDLINE_LINUX="cryptdevice=UUID=[PASTE-UUID-HERE]:[NAME-OF-ENCRYPTED-DISK] 
 ```
 Finally, generate the new grub configuration:
 ```bash
-grub-mkconfig -o /boot/grub/grub.cfg
+# grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## Systemd services
 To create user with systemd-homed:
 ```bash
-systemctl enable systemd-homed.service
+# systemctl enable systemd-homed.service
 ```
 Enable NetworkManager at system startup:
 ```bash
-systemctl enable NetworkManager.service
+# systemctl enable NetworkManager.service
 ```
 Enable file system trim timer:
 ```bash
-systemctl enable fstrim.timer
+# systemctl enable fstrim.timer
 ```
 To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. \
 Then, enable reflector with the following command:
 ```bash
-systemctl enable reflector.timer
+# systemctl enable reflector.timer
 ```
 
 ## Users
 Creating a regular user with `UID=1000` right now is recommended:
 ```bash
-useradd USERNAME -m -G wheel
+# useradd USERNAME -m -G wheel
 ```
 Set password for initial user:
 ```bash
-passwd USERNAME
+# passwd USERNAME
 ```
 Create main user with systemd-homed `UID=60186` (this step needs to be done after reboot):
 ```bash
-homectl create USERNAME --disk-size=BYTES --storage=luks --umask=0077 --member-of=audio,avahi,dbus,git,groups,input,libvirt,lp,optical,power,users,uucp,uuidd,video,wheel
+# homectl create USERNAME --disk-size=BYTES --storage=luks --umask=0077 --member-of=audio,avahi,dbus,git,groups,input,libvirt,lp,optical,power,users,uucp,uuidd,video,wheel
 ```
 
 ## Wheel and sudo
 Access the sudoers file using vim:
 ```bash
-EDITOR=vim visudo
+# EDITOR=vim visudo
 ```
 > [!NOTE]
 > To let anyone in the wheel group use sudo, uncomment this line:
@@ -243,11 +243,11 @@ EDITOR=vim visudo
  
 ## Exit installation and reboot
 ```bash
-exit
+# exit
 ```
 ```bash
-umount -R /mnt
+# umount -R /mnt
 ```
 ```bash
-reboot
+# reboot
 ```
