@@ -50,7 +50,7 @@ dd if=/dev/zero of=/dev/nvme0n1 status=progress
 ```ruby
 sync
 ```
-- Now, let's create the EFI and LVM partitions:
+Now, let's create the EFI and LVM partitions:
 ```bash
 gdisk /dev/nvme0n1
 ```
