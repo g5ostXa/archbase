@@ -41,7 +41,8 @@ timedatectl set-ntp true && timedatectl set-timezone America/Toronto
 
 ## Partitions
 > [!NOTE]
-> This example assumes `nvme0n1` is the disk name. You can verify this with `lsblk` command.
+> - This example assumes `nvme0n1` is the disk name.
+> - You can verify this with `lsblk` command.
 
 Wipe the disk properly to later use with Luks encryption:
 ```bash
@@ -209,7 +210,8 @@ Enable file system trim timer:
 ```bash
 systemctl enable fstrim.timer
 ```
-To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. Then, enable reflector with the following command:
+To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. \
+Then, enable reflector with the following command:
 ```bash
 systemctl enable reflector.timer
 ```
