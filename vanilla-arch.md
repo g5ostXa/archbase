@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/archlinux.png" width="200" height="200"/>
+    <img src="/logos/archlinux.png" width="200" height="200"/>
 </div>
 
 <div align="center">
