@@ -199,7 +199,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## Systemd services
 To create user with systemd-homed:
 ```bash
--systemctl enable systemd-homed.service
+systemctl enable systemd-homed.service
 ```
 Enable NetworkManager at system startup:
 ```bash
