@@ -41,8 +41,10 @@ Enable network time protocol and set timezone:
 
 ## Partitions
 > [!NOTE]
-> This example assumes `nvme0n1` is the disk name. You can verify this with `lsblk` command.
-> - Optionally, wipe the disk for a clean install:
+> - This example assumes `nvme0n1` is the disk name.
+> - You can verify this with `lsblk` command.
+
+Optionally, wipe the disk for a clean install:
 ```
 # dd if=/dev/zero of=/dev/nvme0n1 status=progress
 ```
@@ -166,7 +168,8 @@ Enable file system trim timer:
 ```
 # systemctl enable fstrim.timer
 ```
-To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. Then, enable reflector with the following command:
+To automatically refresh pacman mirrors once a week, we need to edit `/etc/xdg/reflector/reflector.conf`. \
+Then, enable reflector with the following command:
 ```
 # systemctl enable reflector.timer
 ```
