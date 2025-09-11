@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="/logos/archlinux.png" width="200" height="200"/>
+</div>
+
 # Archbase wiki
 
 ### [`Archlinux | LVM | Luks`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md)
