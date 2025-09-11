@@ -4,7 +4,7 @@
 
 # Archbase wiki
 
-### [`Archlinux | LVM | LUKS`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md)
+### [`Archlinux | LVM | LUKS`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks)
 This is my personal archbase installation and may not be suitable for new arch users.
 
 #### Table of contents
@@ -24,7 +24,7 @@ This is my personal archbase installation and may not be suitable for new arch u
 
 ---
 
-### [`Vanilla-arch`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md)
+### [`Vanilla-arch`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch)
 This version is very basic and is recommended for new arch users.
 
 #### Table of contents
