@@ -1,13 +1,13 @@
 <div align="center">
-    <img src="/logos/archlinux.png" width="200" height="200"/>
+    <img src="https://github.com/g5ostXa/archbase/blob/main/logos/archlinux.png" width="200" height="200"/>
 </div>
 
 # Archbase wiki
 
-### [`Archlinux | LVM | Luks`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md)
+### [`Archlinux | LVM | LUKS`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md)
 This is my personal archbase installation and may not be suitable for new arch users.
 
-##### Table of contents
+#### Table of contents
 - [`Preparation`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md#preparation)
 - [`Partitions`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md#partitions)
 - [`Formatting`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks.md#formatting)
@@ -27,7 +27,7 @@ This is my personal archbase installation and may not be suitable for new arch u
 ### [`Vanilla-arch`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md)
 This version is very basic and is recommended for new arch users.
 
-##### Table of contents
+#### Table of contents
 - [`Preparation`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#preparation)
 - [`Partitions`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#partitions)
 - [`Formatting`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#formatting)
@@ -41,4 +41,3 @@ This version is very basic and is recommended for new arch users.
 - [`Users`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#users)
 - [`Wheel and sudo`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#wheel-and-sudo)
 - [`Exit installation and reboot`](https://github.com/g5ostXa/archbase/wiki/vanilla%E2%80%90arch.md#exit-installation-and-reboot)
-
