@@ -2,7 +2,7 @@
     <img src="https://github.com/g5ostXa/archbase/blob/main/logos/archlinux.png" width="200" height="200"/>
 </div>
 
-# Archbase wiki
+### `Archbase wiki`
 
 ### [`Archlinux | LVM | LUKS`](https://github.com/g5ostXa/archbase/wiki/arch%E2%80%90lvm%E2%80%90luks)
 This is my personal archbase installation and may not be suitable for new arch users.
