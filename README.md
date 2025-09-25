@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/g5ostXa/archbase/blob/main/logos/archlinux.png" width="200" height="200"/>
+    <img src="https://github.com/g5ostXa/archbase/blob/main/assets/archlinux.png" width="200" height="200"/>
 </div>
 
 # Archbase wiki
